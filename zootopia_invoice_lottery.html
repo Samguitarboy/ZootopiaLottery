@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>即將開獎~阿賢&阿慈準備好了嗎~</title>
+
+    <!-- Favicon 網站圖示設定 -->
+    <!-- 使用方式：將您的圖片放在與 HTML 同一資料夾,並修改下方的檔案名稱 -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- 如果是 .ico 格式,請改用: <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
+    <!-- 如果是 .jpg 格式,請改用: <link rel="icon" type="image/jpeg" href="favicon.jpg"> -->
+    <!-- 如果是 .png 格式,請改用: <link rel="icon" type="image/png" href="favicon.png"> -->
+
+    <!-- Apple 裝置專用圖示 (建議尺寸: 180x180) -->
+    <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+
+    <!-- Google Fonts 引入：科技感字體 + 繁中支援 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== 全域設定 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* 主題字體：Exo 2 (英數) + Noto Sans TC (中文) */
+            font-family: 'Exo 2', 'Noto Sans TC', sans-serif;
+
+            /* Zootopia 夜城霓虹風背景 - 深紫漸層 */
+            background: linear-gradient(135deg, #1a0b2e 0%, #0f0524 50%, #1a0b2e 100%);
+
+            /* 預留背景圖片區 - 可替換為動物方城市夜景圖 */
+            /* background-image: url('zootopia-night-city.jpg'); */
+            /* background-size: cover; */
+            /* background-position: center; */
+            /* background-attachment: fixed; */
+            /* background-blend-mode: overlay; */
+
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 霓虹光暈裝飾 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(236, 0, 140, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        /* ========== 主容器 ========== */
+        .container {
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ========== 標題 ========== */
+        h1 {
+            color: #fff;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow:
+                0 0 10px rgba(0, 217, 255, 0.8),
+                0 0 20px rgba(236, 0, 140, 0.6),
+                0 0 30px rgba(0, 217, 255, 0.4);
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            color: #ff6bcd;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 50px;
+            text-shadow: 0 0 10px rgba(255, 107, 205, 0.5);
+        }
+
+        /* ========== 倒數計時 ========== */
+        #countdown-display {
+            font-size: 6rem;
+            font-weight: 900;
+            color: #00d9ff;
+            text-shadow:
+                0 0 20px rgba(0, 217, 255, 1),
+                0 0 40px rgba(0, 217, 255, 0.7),
+                0 0 60px rgba(0, 217, 255, 0.4);
+            margin: 60px 0;
+            letter-spacing: 10px;
+            font-family: 'Exo 2', monospace;
+        }
+
+        /* ========== 虛擬發票卡片 ========== */
+        .invoice-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 255, 0.9));
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 3px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* 中獎時的金色光芒邊框 */
+        .invoice-card.winner {
+            animation: goldenGlow 1s ease-in-out infinite;
+            box-shadow:
+                0 0 30px rgba(255, 215, 0, 0.8),
+                0 0 60px rgba(255, 165, 0, 0.6),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes goldenGlow {
+            0%, 100% {
+                box-shadow:
+                    0 0 20px rgba(255, 215, 0, 0.8),
+                    0 0 40px rgba(255, 165, 0, 0.6);
+            }
+            50% {
+                box-shadow:
+                    0 0 40px rgba(255, 215, 0, 1),
+                    0 0 80px rgba(255, 165, 0, 0.8);
+            }
+        }
+
+        /* 發票標題 */
+        .invoice-header {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        /* 參加者姓名 */
+        .participant-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #1a0b2e;
+            margin-bottom: 30px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        /* 發票號碼區 */
+        .invoice-number {
+            background: linear-gradient(135deg, #0f0524, #1a0b2e);
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin: 20px 0;
+        }
+
+        .invoice-label {
+            color: #ff6bcd;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+        }
+
+        /* 號碼顯示 - 電子鐘樣式 */
+        .number-display {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #00ff88;
+            font-family: 'Exo 2', monospace;
+            letter-spacing: 8px;
+            text-shadow:
+                0 0 10px rgba(0, 255, 136, 0.8),
+                0 0 20px rgba(0, 255, 136, 0.5);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 滾動動畫效果 */
+        .number-display.rolling,
+        .participant-name.rolling {
+            animation: numberRoll 0.05s infinite;
+        }
+
+        @keyframes numberRoll {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(-3px); opacity: 0.7; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ========== 開獎按鈕 - ZPD 警徽樣式 ========== */
+        .lottery-btn {
+            background: linear-gradient(145deg, #0066ff, #00ccff);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: 'Noto Sans TC', sans-serif;
+            padding: 25px 70px;
+            cursor: pointer;
+            margin-top: 40px;
+
+            /* 警徽立體感 */
+            box-shadow:
+                0 15px 40px rgba(0, 102, 255, 0.5),
+                0 8px 20px rgba(0, 204, 255, 0.4),
+                inset 0 -4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 2px 10px rgba(255, 255, 255, 0.3);
+
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lottery-btn::before {
+            content: '🎖️';
+            position: absolute;
+            left: 30px;
+            font-size: 1.5rem;
+        }
+
+        .lottery-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow:
+                0 20px 50px rgba(0, 102, 255, 0.7),
+                0 10px 30px rgba(0, 204, 255, 0.6);
+        }
+
+        .lottery-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .lottery-btn:disabled {
+            background: linear-gradient(145deg, #555, #777);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* ========== 中獎賀喜全螢幕覆蓋層 ========== */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .celebration-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* 恭喜中獎大字 */
+        .celebration-title {
+            font-size: 6rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow:
+                0 0 20px rgba(255, 215, 0, 1),
+                0 0 40px rgba(255, 165, 0, 0.8),
+                0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            font-family: 'Noto Sans TC', sans-serif;
+
+            /* 彈跳入場動畫 */
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 中獎者資訊卡片 */
+        .winner-info {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 250, 205, 0.9));
+            border-radius: 30px;
+            padding: 50px 60px;
+            box-shadow:
+                0 0 50px rgba(255, 215, 0, 0.6),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: zoomIn 0.6s ease-out 0.3s backwards;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .winner-name {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #e60073;
+            margin-bottom: 30px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .winner-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #0066ff;
+            font-family: 'Exo 2', monospace;
+            letter-spacing: 5px;
+        }
+
+        .close-hint {
+            margin-top: 50px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* ========== 彩帶粒子 ========== */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+        /* ========== 工具類別 ========== */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== RWD 響應式設計 ========== */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.1rem; }
+            #countdown-display { font-size: 4rem; letter-spacing: 5px; }
+
+            .invoice-card { padding: 40px 25px; }
+            .participant-name { font-size: 2rem; }
+            .number-display { font-size: 2.8rem; letter-spacing: 4px; }
+            .lottery-btn { font-size: 1.5rem; padding: 20px 50px; }
+
+            .celebration-title { font-size: 3.5rem; }
+            .winner-info { padding: 40px 30px; }
+            .winner-name { font-size: 2.5rem; }
+            .winner-number { font-size: 2rem; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            #countdown-display { font-size: 3rem; }
+            .number-display { font-size: 2.2rem; letter-spacing: 2px; }
+            .celebration-title { font-size: 2.5rem; }
+            .winner-name { font-size: 2rem; }
+            .winner-number { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦊 動物方城市 🐰</h1>
+        <p class="subtitle">ZPD 警局 - 統一發票中獎號碼即將揭曉</p>
+
+        <!-- 倒數計時 -->
+        <div id="countdown-display" class="hidden">00:00:00</div>
+
+        <!-- 虛擬發票卡片 -->
+        <div id="invoice-card" class="invoice-card hidden">
+            <div class="invoice-header">⚡ 電子發票證明聯 ：114年11-12月⚡</div>
+
+            <!-- 參加者姓名 -->
+            <div id="participant-name" class="participant-name">準備開獎...</div>
+
+            <!-- 發票號碼 -->
+            <div class="invoice-number">
+                <div class="invoice-label">發票號碼 INVOICE NO.</div>
+                <div id="number-display" class="number-display">--</div>
+            </div>
+        </div>
+
+        <!-- 開獎按鈕 -->
+        <button id="lottery-btn" class="lottery-btn hidden">立即開獎</button>
+    </div>
+
+    <!-- 中獎賀喜全螢幕覆蓋層 -->
+    <div id="celebration-overlay" class="celebration-overlay">
+        <div class="celebration-title">🎉 恭喜中獎！🎉</div>
+        <div class="winner-info">
+            <div class="winner-name" id="final-winner-name"></div>
+            <div class="winner-number" id="final-winner-number"></div>
+        </div>
+        <div class="close-hint">點擊任意處關閉</div>
+    </div>
+
+    <script>
+        // ========== 設定變數區 (可自行修改) ==========
+
+        // 倒數目標時間 (格式: 'YYYY-MM-DD HH:MM:SS')
+        const TARGET_TIME = '2025-12-20 00:00:00';
+
+        // 參加者資料：姓名 + 發票號碼 (格式: XX-12345678)
+        const PARTICIPANTS = [
+            { name: "茱蒂 (Judy)", invoice: "AB-12345678" },
+            { name: "尼克 (Nick)", invoice: "CD-87654321" },
+            { name: "快俠 (Flash)", invoice: "ZZ-11223344" },
+            { name: "波哥局長 (Bogo)", invoice: "EF-99887766" },
+            { name: "洪金豹 (Clawhauser)", invoice: "GH-55443322" },
+            { name: "羊副市長 (Bellwether)", invoice: "IJ-66778899" },
+            { name: "芬尼克 (Finnick)", invoice: "KL-13579246" },
+            { name: "獅市長 (Lionheart)", invoice: "MN-24681357" },
+            { name: "葉慈慈 (Tracy)", invoice: "TS-52201314" },
+        ];
+
+        // 滾動動畫持續時間 (毫秒)
+        const ROLLING_DURATION = 3500;
+
+        // 彩帶顏色 (金色 + 霓虹色系)
+        const CONFETTI_COLORS = ['#FFD700', '#FFA500', '#FF6BCD', '#00D9FF', '#00FF88'];
+
+        // ========== DOM 元素 ==========
+        const countdownDisplay = document.getElementById('countdown-display');
+        const invoiceCard = document.getElementById('invoice-card');
+        const participantName = document.getElementById('participant-name');
+        const numberDisplay = document.getElementById('number-display');
+        const lotteryBtn = document.getElementById('lottery-btn');
+        const celebrationOverlay = document.getElementById('celebration-overlay');
+        const finalWinnerName = document.getElementById('final-winner-name');
+        const finalWinnerNumber = document.getElementById('final-winner-number');
+
+        // ========== 音效函式 (預留插槽) ==========
+
+        /**
+         * 播放滾動音效 (每幀跳動時觸發)
+         * 預留音效功能 - 可加入短促的「嗶」聲或機械音
+         */
+        function playRollingSound() {
+            // console.log('播放滾動音效');
+            // 範例: const audio = new Audio('rolling-beep.mp3'); audio.play();
+        }
+
+        /**
+         * 播放中獎音效
+         * 預留音效功能 - 可加入歡呼或勝利音樂
+         */
+        function playWinSound() {
+            // console.log('播放中獎音效');
+            // 範例: const audio = new Audio('win-celebration.mp3'); audio.play();
+        }
+
+        /**
+         * 播放按鈕點擊音效
+         */
+        function playClickSound() {
+            // console.log('播放點擊音效');
+            // 範例: const audio = new Audio('button-click.mp3'); audio.play();
+        }
+
+        // ========== 倒數計時功能 ==========
+
+        function startCountdown() {
+            const targetDate = new Date(TARGET_TIME).getTime();
+
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    clearInterval(timer);
+                    onCountdownEnd();
+                    return;
+                }
+
+                // 計算天、時、分、秒
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // 格式化顯示 (如果超過 1 天,顯示天數)
+                if (days > 0) {
+                    countdownDisplay.textContent =
+                        `${days}天 ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                } else {
+                    countdownDisplay.textContent =
+                        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        /**
+         * 倒數結束處理
+         */
+        function onCountdownEnd() {
+            countdownDisplay.textContent = '開獎時間到！';
+
+            setTimeout(() => {
+                countdownDisplay.classList.add('hidden');
+                invoiceCard.classList.remove('hidden');
+                lotteryBtn.classList.remove('hidden');
+            }, 1500);
+        }
+
+        // ========== 號碼滾動動畫 ==========
+
+        let rollingInterval = null;
+
+        /**
+         * 開始滾動動畫 - 姓名與號碼快速變換
+         */
+        function startRollingAnimation() {
+            participantName.classList.add('rolling');
+            numberDisplay.classList.add('rolling');
+
+            rollingInterval = setInterval(() => {
+                // 隨機選取參加者
+                const randomParticipant = PARTICIPANTS[Math.floor(Math.random() * PARTICIPANTS.length)];
+
+                // 更新姓名
+                participantName.textContent = randomParticipant.name;
+
+                // 更新號碼 (隨機數字效果)
+                const randomPrefix = String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
+                                    String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                const randomNumbers = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
+                numberDisplay.textContent = `${randomPrefix}-${randomNumbers}`;
+
+                // 播放滾動音效
+                playRollingSound();
+            }, 50); // 每 50ms 更新一次
+        }
+
+        /**
+         * 停止滾動並顯示中獎者
+         */
+        function stopRollingAndShowWinner(winner) {
+            clearInterval(rollingInterval);
+
+            participantName.classList.remove('rolling');
+            numberDisplay.classList.remove('rolling');
+
+            // 顯示中獎者
+            participantName.textContent = winner.name;
+            numberDisplay.textContent = winner.invoice;
+
+            // 卡片加上金色光芒
+            invoiceCard.classList.add('winner');
+        }
+
+        // ========== 開獎主流程 ==========
+
+        function startLottery() {
+            playClickSound();
+
+            lotteryBtn.disabled = true;
+            invoiceCard.classList.remove('winner');
+
+            // 開始滾動動畫
+            startRollingAnimation();
+
+            // 經過指定時間後停止並抽出中獎者
+            setTimeout(() => {
+                const winner = PARTICIPANTS.find(p => p.name === "葉慈慈 (Tracy)") || PARTICIPANTS[PARTICIPANTS.length - 1];
+                stopRollingAndShowWinner(winner);
+
+                // 播放中獎音效
+                playWinSound();
+
+                // 延遲 0.5 秒後顯示賀喜畫面
+                setTimeout(() => {
+                    showCelebration(winner);
+                }, 500);
+
+                lotteryBtn.disabled = false;
+            }, ROLLING_DURATION);
+        }
+
+        // ========== 賀喜畫面 ==========
+
+        /**
+         * 顯示全螢幕中獎賀喜
+         */
+        function showCelebration(winner) {
+            finalWinnerName.textContent = winner.name;
+            finalWinnerNumber.textContent = winner.invoice;
+
+            celebrationOverlay.classList.add('active');
+
+            // 發射彩帶
+            launchConfetti();
+        }
+
+        /**
+         * 關閉賀喜畫面
+         */
+        function closeCelebration() {
+            celebrationOverlay.classList.remove('active');
+        }
+
+        // ========== 彩帶特效 ==========
+
+        /**
+         * 發射彩帶 - 全螢幕落下
+         */
+        function launchConfetti() {
+            const confettiCount = 200; // 彩帶數量
+
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 30); // 分批發射
+            }
+        }
+
+        /**
+         * 建立單一彩帶粒子
+         */
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+
+            // 隨機顏色 (金色系 + 霓虹色)
+            const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+            confetti.style.backgroundColor = color;
+
+            // 隨機起始位置
+            const startX = Math.random() * window.innerWidth;
+            confetti.style.left = startX + 'px';
+            confetti.style.top = '-30px';
+
+            // 隨機大小
+            const size = Math.random() * 10 + 8;
+            confetti.style.width = size + 'px';
+            confetti.style.height = size + 'px';
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+
+            // 隨機旋轉
+            const rotation = Math.random() * 360;
+
+            document.body.appendChild(confetti);
+
+            // 動畫參數
+            const duration = Math.random() * 3000 + 2500; // 2.5-5.5秒
+            const endX = startX + (Math.random() - 0.5) * 300;
+            const endY = window.innerHeight + 50;
+
+            // Web Animations API
+            confetti.animate([
+                {
+                    transform: `translate(0, 0) rotate(${rotation}deg)`,
+                    opacity: 1
+                },
+                {
+                    transform: `translate(${endX - startX}px, ${endY}px) rotate(${rotation + 720}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            });
+
+            // 清理
+            setTimeout(() => {
+                confetti.remove();
+            }, duration);
+        }
+
+        // ========== 事件監聽 ==========
+
+        lotteryBtn.addEventListener('click', startLottery);
+        celebrationOverlay.addEventListener('click', closeCelebration);
+
+        // ========== 初始化 ==========
+
+        function init() {
+            const now = new Date().getTime();
+            const target = new Date(TARGET_TIME).getTime();
+
+            if (now >= target) {
+                // 直接顯示開獎模式
+                onCountdownEnd();
+            } else {
+                // 顯示倒數計時
+                countdownDisplay.classList.remove('hidden');
+                startCountdown();
+            }
+        }
+
+        // 頁面載入後執行
+        init();
+    </script>
+</body>
+</html>
